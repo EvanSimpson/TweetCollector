@@ -13,15 +13,15 @@ search_terms = ["2012 election","presidential election","presidential debate","U
 
 with open('results.json', 'a') as z:
 
-
-	for term in search_terms:	
-		results = t.search(q = term, lang = "en", result_type = "recent")
-		for result in results['results']:
-			ob = json.dump(result, z)
-			z.write('\n')
-	print "Waiting..."
-	time.sleep(600)
-	print "Resuming..."
+	while 1:
+		for term in search_terms:	
+			results = t.search(q = term, lang = "en", result_type = "recent")
+			for result in results['results']:
+				ob = json.dump(result, z)
+				z.write('\n')
+		print "Waiting..."
+		time.sleep(600)
+		print "Resuming..."
 
 
 
