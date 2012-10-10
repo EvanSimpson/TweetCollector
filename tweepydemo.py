@@ -1,12 +1,12 @@
 import tweepy
 from textwrap import TextWrapper
 import pymongo as mongo
+from authvars import AuthVars
 
 
 
-
-auth1 = tweepy.auth.OAuthHandler('HTmBar74PjF2z3HLmHopfQ','ZVKxR0xbLWCVOLsvKlcbZPg0IfaUCy7mTuqK9ZnyyI')
-auth1.set_access_token('265207446-SrxHbsyFpMo29xNrzkaC1So71DFmPjAR2cxRuSna','IS0Pta4xox3XJ02X6gZRb9QKDkNe1RM3iX8fO1uOk')
+auth1 = tweepy.auth.OAuthHandler(AuthVars.c_key, AuthVars.c_secret)
+auth1.set_access_token(AuthVars.a_token, AuthVars.a_secret)
 api = tweepy.API(auth1)
 
 

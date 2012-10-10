@@ -1,3 +1,4 @@
+authvars.py
 *.json
 
 build/*

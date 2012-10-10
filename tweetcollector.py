@@ -1,7 +1,7 @@
 import tweepy
 from textwrap import TextWrapper
 import pymongo as mongo
-
+from authvars import AuthVars
 
 
 
@@ -12,7 +12,7 @@ api = tweepy.API(auth1)
 
 class StreamListener(tweepy.StreamListener):
     status_wrapper = TextWrapper(width=60, initial_indent='    ', subsequent_indent='    ')
-    connection = mongo.Connection(' mongodb://heroku_app8272532:q30abjchsqvvl19k1cuhsq6eib@ds039027.mongolab.com:39027/heroku_app8272532')
+    connection = mongo.Connection(AuthVars.database)
     db = connection.heroku_app8272532
     tweets_collection = db.tweets
     def on_status(self, status):
