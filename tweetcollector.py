@@ -30,5 +30,5 @@ class StreamListener(tweepy.StreamListener):
 l = StreamListener()
 streamer = tweepy.Stream(auth=auth1, listener=l, timeout=3000000000 )
 setTerms = ["2012 election","presidential election","presidential debate","US president","obama administration","president of the united states","republican","ron paul","mitt romney","mitt","romney","democrat","democrats","democratic","barack obama","obama"]
-bbox = [-180,-90,180,90]
-streamer.filter(None, setTerms, locations = bbox)
+#bbox = [-180,-90,180,90]
+streamer.filter(None, setTerms)#, locations = bbox)
