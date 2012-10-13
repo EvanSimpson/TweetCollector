@@ -12,12 +12,12 @@ api = tweepy.API(auth1)
 
 class StreamListener(tweepy.StreamListener):
     status_wrapper = TextWrapper(width=60, initial_indent='    ', subsequent_indent='    ')
-    connection = mongo.Connection(AuthVars.database)
-    db = connection.heroku_app8272532
-    tweets_collection = db.tweets
+    #connection = mongo.Connection(AuthVars.database)
+    #db = connection.heroku_app8272532
+    #tweets_collection = db.tweets
     def on_status(self, status):
         try:
-            tweets_collection.insert(status.__dict__.iteritems())
+            #tweets_collection.insert(status.__dict__.iteritems())
             print self.status_wrapper.fill(status.text)
             print '\n %s  %s  via %s\n' % (status.author.screen_name, status.created_at, status.source)
         
