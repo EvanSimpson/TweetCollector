@@ -38,6 +38,6 @@ class StreamListener(tweepy.StreamListener):
 with open('results.json', 'a') as z:
 	l = StreamListener()
 	streamer = tweepy.Stream(auth=auth1, listener=l, timeout=3000000000 )
-	setTerms = ["2012 election","presidential election","presidential debate","US president","obama administration","president of the united states","republican","ron paul","mitt romney","mitt","romney","democrat","democrats","democratic","barack obama","obama"]
+	setTerms = ["2012 election","presidential election","presidential debate","US president","obama administration","president of the united states","republican","ron paul","mitt romney","mitt","romney","democrat","democrats","democratic","barack obama","obama", "barack"]
 	bbox = [-180,-90,180,90]
 	streamer.filter(None, setTerms, locations = bbox)
