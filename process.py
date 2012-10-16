@@ -66,7 +66,7 @@ tweets_collection = db.tweets
 tweets_collection.create_index([("tweet_id", mongo.DESCENDING), ("geo", mongo.DESCENDING), ("from_user_id", mongo.DESCENDING)])
 #tweets_collection.insert()
 #tweets_collection.find_one({"tweet_id": "1230827349"})
-
+ 	
 
 
 

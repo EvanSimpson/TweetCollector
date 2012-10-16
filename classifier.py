@@ -35,31 +35,13 @@ def split_tweets(tagged_tweet):
 	return filtered_tweet
 
 
-def remove_duplicates(cat_list):
-	rem = []
-	for i in range(len(cat_list)):
-		if cat_list[i] == cat_list[i+1]:
-			rem.append(i+1)
-	for i in rem.sort(reverse=True):
-		cat_list.remove(rem[i])
-	return cat_list
-
-
-def categorize(tweet_text):
-	tweet_category = []
-	for category in categories:
-		for term in categories[category]:
-			if term in tweet_text:
-				tweet_category.append(category)
-	return remove_duplicates(tweet_category)
-
 
 
 if __name__ == '__main__':
 	connection = mongo.Connection()
 	db = connection.CompProb
 	tweets_collection = db.tweets
-	#tweets_collection.find_one()
+	tweets_collection.find_one({'geo': {'$ne' : None}})
 
 
 

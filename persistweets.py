@@ -11,7 +11,7 @@ category = { "Democratic Party": ["democrat","democrats","democratic", "barack o
 search_terms = ["2012 election","presidential election","presidential debate","US president","obama administration","president of the united states","republican","ron paul","mitt romney","mitt","romney","democrat","democrats","democratic","barack obama","obama"]
 
 
-with open('results.json', 'a') as z:
+with open('results2.json', 'a') as z:
 
 	while 1:
 		for term in search_terms:	
@@ -20,7 +20,7 @@ with open('results.json', 'a') as z:
 				ob = json.dump(result, z)
 				z.write('\n')
 		print "Waiting..."
-		time.sleep(10)
+		time.sleep(600)
 		print "Resuming..."
 
 

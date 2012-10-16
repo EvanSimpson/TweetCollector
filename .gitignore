@@ -1,4 +1,5 @@
 *.json
 *.txt
 *.pyc
+authvars.py
 build/*
