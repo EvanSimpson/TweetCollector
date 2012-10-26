@@ -65,7 +65,7 @@ def buildTweet_fromDataSift(dsdata):
 	elif tweetd['salience'] == 0:
 		tweetd['sentiment'] = 'neutral'
 	else:
-		tweetd['salience'] == 'negative'
+		tweetd['sentiment'] = 'negative'
 	return tweetd
 
 
@@ -107,4 +107,4 @@ if __name__ == '__main__':
 	#tweets_collection.find_one({"tweet_id": "1230827349"})
 	trainer_collection = db.trainer
 	trainer_collection.create_index([("tweet_id", mongo.DESCENDING)])
-	#run_process_train(trainer_collection)
+	#run_process_training(trainer_collection)
