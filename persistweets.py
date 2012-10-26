@@ -20,7 +20,7 @@ with open('results2.json', 'a') as z:
 				ob = json.dump(result, z)
 				z.write('\n')
 		print "Waiting..."
-		time.sleep(600)
+		time.sleep(300)
 		print "Resuming..."
 
 

@@ -1,6 +1,13 @@
+'''
+This file contains code to process json files containing twitter data and enter it into a database.
+'''
+
+
+
 import pymongo as mongo
 import simplejson as json
 
+count = 0
 
 def categorize(text):
 	'''
@@ -26,61 +33,78 @@ def buildTweet(jsdata):
 	category = categorize(jsdata["text"])
 	tweetd = {
 		"iso_language_code" : jsdata["iso_language_code"],
-		"to_user_name" : jsdata["to_user_name"],
 		"from_user_id_str" : jsdata["from_user_id_str"],
 		"text" : jsdata["text"],
 		"created_at" : jsdata["created_at"],
-		"profile_image_url" : jsdata["profile_image_url"],
-		"to_user_id_str" : jsdata["to_user_id_str"],
-		"to_user" : jsdata["to_user"],
 		"source" : jsdata["source"],
 		"id_str" : jsdata["id_str"],
 		"from_user_name" : jsdata["from_user_name"],
 		"from_user" : jsdata["from_user"],
 		"tweet_id" : jsdata["id"],
 		"from_user_id" : jsdata["from_user_id"],
-		"to_user_id" : jsdata["to_user_id"],
 		"geo" : jsdata["geo"],
-		"profile_image_url_https" : jsdata["profile_image_url_https"],
-		"metadata" : jsdata["metadata"],
 		"category" : category
 		}
 	return tweetd
 
+def buildTweet_fromDataSift(dsdata):
+	'''
+		Converts json tweet data into a python dictionary.
+		Returns a dictionary.
+	'''
+	jsdata = dsdata["twitter"]
+	tweetd = {
+		"text" : dsdata["interaction"]["content"],
+		"id_str" : jsdata["id"],
+		"tweet_id" : int(jsdata["id"]),
+		"salience" : dsdata["salience"]["content"]["sentiment"],
+		"datasift" : 'True'
+		}
+	if tweetd['salience'] > 0:
+		tweetd['sentiment'] = 'positive'
+	elif tweetd['salience'] == 0:
+		tweetd['sentiment'] = 'neutral'
+	else:
+		tweetd['salience'] == 'negative'
+	return tweetd
 
 
-def addTweet(tweetd):
+
+def addTweet(tweetd, collection):
 	'''
 		Checks that the given tweet dictionary isn't already stored in the database, and then stores it.
 		Returns nothing.
 	'''
-	if tweets_collection.find_one({"tweet_id": tweetd["tweet_id"]}) == None:
-		tweets_collection.insert(tweetd)
+	if collection.find_one({"tweet_id": tweetd["tweet_id"]}) == None:
+		collection.insert(tweetd)
 
 
-
-
-connection = mongo.Connection()
-db = connection.CompProb
-tweets_collection = db.tweets
-tweets_collection.create_index([("tweet_id", mongo.DESCENDING), ("geo", mongo.DESCENDING), ("from_user_id", mongo.DESCENDING)])
-#tweets_collection.insert()
-#tweets_collection.find_one({"tweet_id": "1230827349"})
- 	
-
-
-
-with open('results.json', 'r') as z:
-	
-	for line in z:
-		jstweet = json.loads(line)
-		tweetd = buildTweet(jstweet)
-		addTweet(tweetd)
+def run_process_training(collection):
+	li = 0
+	with open('datasift2.json', 'r') as z:
 		
+		for line in z:
+			li += 1
+			print li
+			jstweet = json.loads(line)
+			try:
+				z = jstweet['facebook']
+			except:
+				tweetd = buildTweet_fromDataSift(jstweet)
+				if tweetd:
+					addTweet(tweetd, collection)
 
 
-print "finished"
+	
 
 
-
-
+if __name__ == '__main__':
+	connection = mongo.Connection()
+	db = connection.CompProb
+	tweets_collection = db.tweets
+	tweets_collection.create_index([("tweet_id", mongo.DESCENDING), ("geo", mongo.DESCENDING), ("from_user_id", mongo.DESCENDING)])
+	#tweets_collection.insert()
+	#tweets_collection.find_one({"tweet_id": "1230827349"})
+	trainer_collection = db.trainer
+	trainer_collection.create_index([("tweet_id", mongo.DESCENDING)])
+	#run_process_train(trainer_collection)
