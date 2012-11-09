@@ -69,7 +69,7 @@ def reverse(point, borders):
 
 def point_in_poly(x,y,poly):
 	'''
-		This function from http://www.ariel.com.au/a/python-point-int-poly.html
+		This function modified from http://www.ariel.com.au/a/python-point-int-poly.html
 	'''
 	n = len(poly)
 	inside =False
